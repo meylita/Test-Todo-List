@@ -1,0 +1,26 @@
+<div class="container">
+    <h1 class="my-4">Contact Manager</h1>
+    <form (ngSubmit)="addContact()">
+      <div class="form-group">
+        <input type="text" class="form-control" [(ngModel)]="newContact.name" name="name" placeholder="Name" required>
+      </div>
+      <div class="form-group">
+        <input type="tel" class="form-control" [(ngModel)]="newContact.phone" name="phone" placeholder="Phone Number" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Add</button>
+    </form>
+  
+    <ul class="list-group my-4">
+      <li *ngFor="let contact of contacts" class="list-group-item d-flex justify-content-between align-items-center">
+        <span *ngIf="editingContact?.id !== contact.id">{{ contact.name }} - {{ contact.phone }}</span>
+        <input *ngIf="editingContact?.id === contact.id" [(ngModel)]="editingContact.name" class="form-control">
+        <input *ngIf="editingContact?.id === contact.id" [(ngModel)]="editingContact.phone" class="form-control">
+        <div>
+          <button *ngIf="editingContact?.id !== contact.id" class="btn btn-warning btn-sm" (click)="editContact(contact)">Edit</button>
+          <button *ngIf="editingContact?.id === contact.id" class="btn btn-success btn-sm" (click)="saveContact()">Save</button>
+          <button class="btn btn-danger btn-sm" (click)="deleteContact(contact.id)">Delete</button>
+        </div>
+      </li>
+    </ul>
+  </div>
+  
